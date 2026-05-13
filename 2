@@ -27,7 +27,6 @@ class Monster:
     def show_status(self):
         print(f"[{self.__name}] HP: {self.__hp}")
 
-    # Стандартная версия (без особенностей)
     def take_damage(self, damage):
         new_hp = self.get_hp() - damage
         self.set_hp(new_hp)
@@ -42,12 +41,9 @@ class Zombie(Monster):
         super().__init__(name, 120, 10)
 
     def take_damage(self, damage):
-        actual_damage = damage - 5
-        if actual_damage < 0:
-            actual_damage = 0
-        new_hp = self.get_hp() - actual_damage
+        new_hp = self.get_hp() - damage
         self.set_hp(new_hp)
-        print(f"{self.get_name()} теряет конечность! Получено: {actual_damage}. HP: {self.get_hp()}")
+        print(f"{self.get_name()} теряет конечность! Получено: {damage}. HP: {self.get_hp()}")
 
 
 class Vampire(Monster):
@@ -85,10 +81,10 @@ class Werewolf(Monster):
         new_hp = self.get_hp() - damage
         self.set_hp(new_hp)
         print(f"{self.get_name()} получил {damage} урона. HP: {self.get_hp()}")
-        
+
         if not self._transformed and self.get_hp() < 50:
             self._transformed = True
-            print(f"{self.get_name()} трансформируется и сообщает об этом!")
+            print(f"{self.get_name()} трансформируется!")
 
 
 # Проверка из задания
@@ -97,4 +93,3 @@ v.take_damage(30)
 
 z = Zombie("Зомби")
 z.take_damage(30)
-        
