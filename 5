@@ -1,1 +1,14 @@
-1
+1# Проверка этапа 4
+hunter = Hunter("Ван Хельсинг")
+hunter.add_weapon(SilverSword())
+hunter.add_weapon(HolyWater())
+hunter.add_weapon(CrossbowBolt())
+
+hunter.show_inventory()
+
+zombie = Zombie("Зомби")
+hunter.attack(0, zombie)
+hunter.attack(1, zombie)
+hunter.attack(2, zombie)
+
+print(f"Охотник жив? {hunter.is_alive()}")
