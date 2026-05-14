@@ -1,0 +1,165 @@
+import random
+
+class Monster:
+    def __init__(self, name, hp, dmg):
+        self.__name = name
+        self.__hp = hp
+        self.__dmg = dmg
+
+    def get_name(self):
+        return self.__name
+
+    def get_hp(self):
+        return self.__hp
+
+    def get_dmg(self):
+        return self.__dmg
+
+    def set_hp(self, value):
+        if value < 0:
+            self.__hp = 0
+        else:
+            self.__hp = value
+
+    def is_alive(self):
+        return self.__hp > 0
+
+    def show_status(self):
+        print(f"[{self.__name}] HP: {self.__hp}")
+
+    def take_damage(self, damage):
+        new_hp = self.get_hp() - damage
+        self.set_hp(new_hp)
+
+    # Атака охотника
+    def attack_hunter(self, hunter):
+        hunter.take_damage(self.get_dmg())
+
+
+class Zombie(Monster):
+    def __init__(self, name):
+        super().__init__(name, 120, 10)
+
+    def take_damage(self, damage):
+        new_hp = self.get_hp() - damage
+        self.set_hp(new_hp)
+        print(f"{self.get_name()} теряет конечность! Получено: {damage}. HP: {self.get_hp()}")
+
+
+class Vampire(Monster):
+    def __init__(self, name):
+        super().__init__(name, 80, 15)
+
+    def take_damage(self, damage):
+        actual_damage = damage - 5
+        if actual_damage < 0:
+            actual_damage = 0
+        new_hp = self.get_hp() - actual_damage
+        self.set_hp(new_hp)
+        print(f"{self.get_name()} поглощает 5 урона! Получено: {actual_damage}. HP: {self.get_hp()}")
+
+
+class Ghost(Monster):
+    def __init__(self, name):
+        super().__init__(name, 60, 20)
+
+    def take_damage(self, damage):
+        if random.random() < 0.3:
+            print(f"{self.get_name()} уклоняется от удара!")
+        else:
+            new_hp = self.get_hp() - damage
+            self.set_hp(new_hp)
+            print(f"{self.get_name()} получил {damage} урона. HP: {self.get_hp()}")
+
+
+class Werewolf(Monster):
+    def __init__(self, name):
+        super().__init__(name, 100, 25)
+        self._transformed = False
+
+    def take_damage(self, damage):
+        new_hp = self.get_hp() - damage
+        self.set_hp(new_hp)
+        print(f"{self.get_name()} получил {damage} урона. HP: {self.get_hp()}")
+
+        if not self._transformed and self.get_hp() < 50:
+            self._transformed = True
+            print(f"{self.get_name()} трансформируется!")
+
+
+
+class Weapon:
+    def __init__(self, name):
+        self.__name = name
+
+    def get_name(self):
+        return self.__name
+
+    def use(self, monster):
+        pass
+
+class SilverSword(Weapon):
+    def __init__(self):
+        super().__init__("Серебряный меч")
+
+    def use(self, monster):
+        print(f"Охотник атакует {monster.get_name()} серебрыным мечом! Нанесено 30 урона")
+        monster.take_damage(30)
+
+
+class HolyWater(Weapon):
+    def __init__(self):
+        super().__init__("Святая вода")
+
+    def use(self, monster):
+        print(f"Охотник бросает святую воду в {monster.get_name()}! Нанесено 20 урона")
+        monster.take_damage(20)
+
+class CrossbowBolt(Weapon):
+    def __init__(self):
+        super().__init__("Арбалет с болтом")
+
+    def use(self, monster):
+        print(f"Охотник стреляет из арбалета в {monster.get_name()}! Нанесено 25 урона")
+        monster.take_damage(30)
+
+class Hunter:
+    def __init__(self, name):
+        self.__name = name
+        self.__hp = 100
+        self.__weapon = []
+
+    def get_name(self):
+        return self.__name
+
+    def get_hp(self):
+        return self.__hp
+
+    def set_hp(self, value):
+        if value < 0:
+            self.__hp = 0
+        else :
+            self.__hp = value
+
+    def is_alive(self):
+        return self.__hp > 0
+
+    def add_weapon(self, weapon):
+        self.__weapons.append(weapon)
+
+    def show_inventory(self):
+        if not self.__weapons:
+            print("Инвентарь пуст")
+            return
+        print("===Инвентарь охотника===")
+        for i, weapon in enumerate(self.__weapons):
+            print(f"{i}. {weapon.get_name()}")
+            
+        def attack(self, weapon_index, monster):
+            if weapon_index < 0 or weapon_index >= len(self.__weapons):
+                print("Неверный индекс оружия!")
+                return
+            weapon = self.__weapons[weapon_index]
+            weapon.use(monster)
+            
+            
