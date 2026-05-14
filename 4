@@ -159,12 +159,11 @@ class Hunter:
 
     def attack(self, weapon_index, monster):
         if weapon_index < 0 or weapon_index >= len(self.__weapons):
-            print("Неверный индекс!")
             return
         weapon = self.__weapons[weapon_index]
         weapon.use(monster)
 
-hunter = Hunter("Ван Хельсинг")
+hunter = Hunter("Охотник")
 hunter.add_weapon(SilverSword())
 hunter.add_weapon(HolyWater())
 hunter.add_weapon(CrossbowBolt())
