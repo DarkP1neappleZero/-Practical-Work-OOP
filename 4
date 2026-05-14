@@ -127,7 +127,7 @@ class Hunter:
     def __init__(self, name):
         self.__name = name
         self.__hp = 100
-        self.__weapon = []
+        self.__weapons = []
 
     def get_name(self):
         return self.__name
@@ -138,7 +138,7 @@ class Hunter:
     def set_hp(self, value):
         if value < 0:
             self.__hp = 0
-        else :
+        else:
             self.__hp = value
 
     def is_alive(self):
@@ -156,9 +156,22 @@ class Hunter:
             print(f"{i}. {weapon.get_name()}")
 
     def attack(self, weapon_index, monster):
-            if weapon_index < 0 or weapon_index >= len(self.__weapons):
-                print("Неверный индекс оружия!")
-                return
-            weapon = self.__weapons[weapon_index]
-            weapon.use(monster)
+        if weapon_index < 0 or weapon_index >= len(self.__weapons):
+            print("Неверный индекс!")
+            return
+        weapon = self.__weapons[weapon_index]
+        weapon.use(monster)
 
+hunter = Hunter("Ван Хельсинг")
+hunter.add_weapon(SilverSword())
+hunter.add_weapon(HolyWater())
+hunter.add_weapon(CrossbowBolt())
+
+hunter.show_inventory()
+
+zombie = Zombie("Зомби")
+hunter.attack(0, zombie)
+hunter.attack(1, zombie)
+hunter.attack(2, zombie)
+
+print(f"Охотник жив? {hunter.is_alive()}")
