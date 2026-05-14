@@ -152,8 +152,10 @@ class Hunter:
             print("Инвентарь пуст")
             return
         print("===Инвентарь охотника===")
-        for i, weapon in enumerate(self.__weapons):
+        i = 1
+        for weapon in self.__weapons:
             print(f"{i}. {weapon.get_name()}")
+            i += 1
 
     def attack(self, weapon_index, monster):
         if weapon_index < 0 or weapon_index >= len(self.__weapons):
