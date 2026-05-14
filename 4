@@ -176,4 +176,7 @@ hunter.attack(0, zombie)
 hunter.attack(1, zombie)
 hunter.attack(2, zombie)
 
-print(f"Охотник жив? {hunter.is_alive()}")
+if hunter.is_alive():
+    print("Охотник жив")
+else:
+    print("Охотник мертв")
