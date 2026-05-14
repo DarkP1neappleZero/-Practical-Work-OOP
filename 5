@@ -12,3 +12,41 @@ hunter.attack(1, zombie)
 hunter.attack(2, zombie)
 
 print(f"Охотник жив? {hunter.is_alive()}")
+class Hunter:
+    def __init__(self, name):
+        self.__name = name
+        self.__hp = 100
+        self.__weapons = []
+
+    def get_name(self):
+        return self.__name
+
+    def get_hp(self):
+        return self.__hp
+
+    def set_hp(self, value):
+        if value < 0:
+            self.__hp = 0
+        else:
+            self.__hp = value
+
+    def is_alive(self):
+        return self.__hp > 0
+
+    def add_weapon(self, weapon):
+        self.__weapons.append(weapon)
+
+    def show_inventory(self):
+        if not self.__weapons:
+            print("Инвентарь пуст")
+            return
+        print("=== Инвентарь охотника ===")
+        for i, weapon in enumerate(self.__weapons):
+            print(f"{i}. {weapon.get_name()}")
+
+    def attack(self, weapon_index, monster):
+        if weapon_index < 0 or weapon_index >= len(self.__weapons):
+            print("Неверный индекс оружия!")
+            return
+        weapon = self.__weapons[weapon_index]
+        weapon.use(monster)
